@@ -1,0 +1,53 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package View;
+
+import View.GUIConstants;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Shape;
+import java.awt.geom.RoundRectangle2D;
+import javax.swing.JLabel;
+/**
+ *
+ * @author grapl
+ */
+@SuppressWarnings("Serial")
+public class JButton extends JLabel{
+    
+    private Shape shape;
+    private int radius;
+
+    public JButton(String text,int radius,int textSize) {
+        super(text);
+        this.radius = radius;
+        setFont(new Font("Segoe UI",Font.BOLD,textSize));
+        setOpaque(false);
+        setForeground(GUIConstants.white);
+        setHorizontalAlignment(CENTER);
+        setCursor(new Cursor(Cursor.HAND_CURSOR));
+     
+    }
+    protected void paintComponent(Graphics g){
+        g.setColor(GUIConstants.blue);
+        g.fillRoundRect(0,0,getWidth()-1,getHeight()-1,radius,radius);
+        super.paintComponent(g);
+    }
+    protected void paintBorder(Graphics g){
+        g.setColor(GUIConstants.blue);
+        g.drawRoundRect(0,0,getWidth()-1,getHeight()-1,radius,radius);
+        
+    }
+    public boolean contains(int x, int y ){
+        if (shape == null || !shape.getBounds().equals(getBounds())){
+            shape = new RoundRectangle2D.Float(0,0,getWidth()-1,getHeight()-1,45,45);
+            
+        }
+        return shape.contains(x,y);
+        
+    }
+    
+}
